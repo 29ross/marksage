@@ -1,0 +1,100 @@
+<html>
+<head>
+<script>
+  var t = setInterval(function() {
+    // you can change `random` to any variable you want to be displaye
+    //var prevTime = new Date(1985, 3, 1, 8, 30, 0); // Jan 1, 2011
+   // var prevTime = new Date(1975, 3, 6, 8, 30); // Jan 1, 2011
+    var prevTime = new Date(1946, 4, 24, 0, 00); // Jan 1, 2011
+    // var prevTime = new Date(2010, 6, 5, 17, 30); // Jan 1, 2011
+    
+    var thisTime = new Date(); // now
+
+    var tempTime = new Date(prevTime);
+    tempTime.setFullYear(thisTime.getFullYear());
+
+
+    var prevYear = prevTime.getFullYear(); 
+    var prevMonth = prevTime.getMonth();
+    var prevDay = prevTime.getDate();
+    var prevHours = prevTime.getHours();
+    var prevMinutes = prevTime.getMinutes();
+    var prevSeconds = prevTime.getSeconds();
+
+		var tmpDate = prevTime;
+  	var years = 0;
+		while (tmpDate < thisTime) {
+    		years +=1;
+        tmpDate = new Date(prevYear+years, prevMonth, prevDay, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) years-=1;
+    }
+        tmpDate = new Date(prevYear+years, prevMonth, prevDay, prevHours, prevMinutes, 0);
+    
+    var ageYears = years;
+
+		var months=0;
+    while (tmpDate < thisTime) {
+    		months +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) months-=1;
+    }
+    
+       tmpDate = new Date(prevYear+years, prevMonth+months, prevDay, prevHours, prevMinutes, 0);
+
+    var ageMonths = months;
+		var days=0;
+    while (tmpDate < thisTime) {
+    		days +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) days-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours, prevMinutes, 0);
+		var ageDays = days;
+
+		var hours=0;
+    while (tmpDate < thisTime) {
+    		hours +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes, 0);
+        if (tmpDate>thisTime) hours-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes, 0);
+		var ageHours = hours;
+    
+
+		var minutes=0;
+    while (tmpDate < thisTime) {
+    		minutes +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes+minutes, 0);
+        if (tmpDate>thisTime) minutes-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes+minutes, 0);
+		var ageMinutes = minutes;
+    
+    var seconds=0;
+		seconds = thisTime.getSeconds();
+    
+   
+    document.getElementById("display").innerHTML = ""+ageYears+" Years, "+ageMonths+" months, "+ageDays+" days, "+ageHours + " hours, " + ageMinutes + " minutes and " + seconds + " seconds.";
+
+    }
+    , 500);
+    document.getElementById("markimg1").setAttribute("style", "opacity:0.5;-moz-opacity:0.5;filter:alpha(opacity=50)");
+
+
+</script>
+</head>
+<body bgcolor="000000" text="eeeeee">
+<center>
+<p><p><P>
+<font size="24">
+<p >PHIL's AGE</p>
+</font>
+
+<font size="16">
+<div id="display">
+
+</div>
+</font>
+</center>
+</body>
+</html>
