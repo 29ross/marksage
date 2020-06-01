@@ -1,0 +1,158 @@
+
+<html>
+<head>
+<script>
+  var t = setInterval(function() {
+    // you can change `random` to any variable you want to be displaye
+    //var prevTime = new Date(1985, 3, 1, 8, 30, 0); // Jan 1, 2011
+   // var prevTime = new Date(1975, 3, 6, 8, 30); // Jan 1, 2011
+    var prevTime = new Date(1987, 3, 18, 0, 00); // Jan 1, 2011  Saskia
+    //var prevTime = new Date(1987, 1, 3, 0, 00); // test
+    //var prevTime = new Date(1987, 9, 1, 0, 00); // test
+    // var prevTime = new Date(2010, 6, 5, 17, 30); // Jan 1, 2011
+    
+    var thisTime = new Date(); // now
+
+    var tempTime = new Date(prevTime);
+    tempTime.setFullYear(thisTime.getFullYear());
+
+
+    var prevYear = prevTime.getFullYear(); 
+    var prevMonth = prevTime.getMonth();
+    var prevDay = prevTime.getDate();
+    var prevHours = prevTime.getHours();
+    var prevMinutes = prevTime.getMinutes();
+    var prevSeconds = prevTime.getSeconds();
+	var tmpDate = new Date(prevTime);
+  	
+  	//
+  	// Calc Years
+  	// 
+  	
+  	var years = 0;
+	
+	while (tmpDate < thisTime) {
+    		years +=1;
+        tmpDate = new Date(prevYear+years, prevMonth, prevDay, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) years-=1;
+    }
+        tmpDate = new Date(prevYear+years, prevMonth, prevDay, prevHours, prevMinutes, 0);
+    
+    var ageYears = years;
+
+
+	//
+	// Calc QC
+	//
+
+	var bd1 = tmpDate;
+	var bd2 = new Date(tmpDate);
+	bd2.setHours(0);
+	bd2.setMinutes(0);
+	bd2.setSeconds(0);
+	
+	// bd2 is now the next birthday
+	bd2.setFullYear(tmpDate.getFullYear()+1);
+	var qclength = (bd2.getTime()-bd1.getTime()) / 3;  // the duration of a QC in milliseconds
+		
+	// length of a Quarter Century rounded in days
+	qclength =  Math.round(qclength /1000/24/60/60,0);	
+	qclength = qclength *1000*24*60*60;  // back to milliseconds
+	
+	var nextQC = new Date(bd1.getTime() + qclength) ;
+
+	if (nextQC < thisTime) {
+		nextQC = new Date(nextQC.getTime()+qclength);
+	}
+	
+	var days2qc = (nextQC.getTime()-thisTime.getTime())/1000/24/60/60;
+	days2qc = Math.round(days2qc,0);
+	var db = bd2;
+	
+	//
+	// calc age in months
+	//
+	
+	var months=0;
+    while (tmpDate < thisTime) {
+    		months +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) months-=1;
+    }
+    
+       tmpDate = new Date(prevYear+years, prevMonth+months, prevDay, prevHours, prevMinutes, 0);
+
+    var ageMonths = months;
+	
+	//
+	// calc age in days
+	//
+		
+	var days=0;
+    while (tmpDate < thisTime) {
+    		days +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours, prevMinutes, 0);
+        if (tmpDate>thisTime) days-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours, prevMinutes, 0);
+		var ageDays = days;
+
+		var hours=0;
+    while (tmpDate < thisTime) {
+    		hours +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes, 0);
+        if (tmpDate>thisTime) hours-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes, 0);
+		var ageHours = hours;
+    
+
+		var minutes=0;
+    while (tmpDate < thisTime) {
+    		minutes +=1;
+        tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes+minutes, 0);
+        if (tmpDate>thisTime) minutes-=1;
+    }
+    tmpDate = new Date(prevYear+years, prevMonth+months, prevDay+days, prevHours+hours, prevMinutes+minutes, 0);
+		var ageMinutes = minutes;
+    
+    var seconds=0;
+	seconds = thisTime.getSeconds();
+    
+  
+   
+    document.getElementById("display").innerHTML = ""+ageYears+" Years, "+ageMonths+" months, "+ageDays+" days, "+ageHours + " hours, " + ageMinutes + " minutes and " + seconds + " seconds.";
+
+
+	var shortQC = nextQC.toString().substring(3, 16);
+    document.getElementById("next").innerHTML = "Next Quarter Century:"+shortQC;
+    document.getElementById("days").innerHTML = "("+(days2qc+1) +" days)";
+   // document.getElementById("debug").innerHTML = ">> " +db +" <<";  
+
+    }
+    , 500);
+    document.getElementById("markimg1").setAttribute("style", "opacity:0.5;-moz-opacity:0.5;filter:alpha(opacity=50)");
+    
+
+
+</script>
+</head>
+<body bgcolor="000000" text="eeeeee">
+<center>
+<p><p><P>
+<font size="24">
+<p >SASKIA'S AGE</p>
+<hr/>
+</font>
+
+<font size="16">
+<div id="display">
+</div>
+<hr/>
+<div id="next"></div>
+<div id="days"></div>
+<div id="debug"></div>	
+</font>
+</center>
+</body>
+</html>
